@@ -95,7 +95,24 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     number_rows = int(available_space_y/(2 * alien_height))
     return number_rows
 
+#This method calls method in alien class to make row of aliens move:
+def update_aliens(ai_settings, aliens):
+    check_fleet_edges(ai_settings, aliens)
+    aliens.update()
 
+#This method will check if an alien has reached the edge and will make the fleet of aliens change direction if so:
+def check_fleet_edges(ai_settings, aliens):
+    for alien in aliens.sprites():
+        if alien.check_edges():
+            change_fleet_direction(ai_settings, aliens)
+            break
+
+def change_fleet_direction(ai_settings, aliens):
+    #Drops alien fleet down and changes the direction the alien fleet is moving in:
+    for alien in aliens.sprites():
+        alien.rect.y += ai_settings.fleet_drop_speed
+    
+    ai_settings.fleet_direction *= -1
 
 
 

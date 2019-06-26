@@ -15,3 +15,9 @@ class Settings():
 
         #Ship settings:
         self.ship_speed_factor = 1.5
+
+        #Alien Settings:
+        self.alien_speed_factor = 1
+        self.fleet_drop_speed = 10 #This variable will keep track of how quickly the fleet will drop
+        #Can switch the fleet_direction value between 1 and -1 to indicate which way the alien fleet will move
+        self.fleet_direction = 1
