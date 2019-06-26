@@ -10,7 +10,7 @@ def run_game():
     pygame.init()
     ai_settings = Settings()
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
-    ship = Ship(screen)
+    ship = Ship(ai_settings, screen)
     
 
     #This is the loop that will be running the game:
