@@ -2,7 +2,7 @@ import pygame
 import sys 
 from settings import Settings
 from ship import Ship
-from alien import Alien
+#from alien import Alien
 import game_methods as game_runner
 from pygame.sprite import Group
 
@@ -14,7 +14,11 @@ def run_game():
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
     ship = Ship(ai_settings, screen)
     bullets = Group() 
-    alien = Alien(ai_settings, screen)
+    #alien = Alien(ai_settings, screen)
+    aliens = Group()
+
+    #Creating a fleet of aliens:
+    game_runner.create_fleet(ai_settings, screen, aliens)
     
 
     #This is the loop that will be running the game:
@@ -22,6 +26,6 @@ def run_game():
         game_runner.check_events(ai_settings, screen, ship, bullets)
         ship.update()
         game_runner.update_bullets(bullets)
-        game_runner.update_screen(ai_settings, screen, ship, alien, bullets)
+        game_runner.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 run_game()
