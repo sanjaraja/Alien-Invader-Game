@@ -34,9 +34,7 @@ def check_key_down(event, ai_settings, screen, ship, bullets):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
-        #Creating a new bullet and adding it to the bullets group:
-        new_bullet = Bullet(ai_settings, screen, ship)
-        bullets.add(new_bullet)
+        fire_bullet(ai_settings, screen, ship, bullets)
 
 #Checking the keyup events:
 def check_key_up(event, ship):
@@ -44,6 +42,22 @@ def check_key_up(event, ship):
         ship.moving_right = False
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
+
+def update_bullets(bullets):
+    #Update the bullet's position:
+    bullets.update()
+
+     #Getting rid of bullets that have been fired for better memory management:
+    for bullet in bullets.copy():
+        if bullet.rect.bottom <= 0:
+            bullets.remove(bullet)  
+
+def fire_bullet(ai_settings, screen, ship, bullets):
+    #Creating a new bullet and adding it to the bullets group:
+        if len(bullets) < ai_settings.bullets_allowed:
+            new_bullet = Bullet(ai_settings, screen, ship)
+            bullets.add(new_bullet)
+
 
 
 
