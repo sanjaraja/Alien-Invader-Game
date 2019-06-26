@@ -15,8 +15,8 @@ def run_game():
 
     #This is the loop that will be running the game:
     while True:
-        
-        game_runner.check_events()
+        game_runner.check_events(ship)
+        ship.update()
         game_runner.update_screen(ai_settings, screen, ship)
 
 run_game()
