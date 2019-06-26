@@ -47,9 +47,12 @@ def check_key_up(event, ship):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
 
-def update_bullets(bullets):
+def update_bullets(aliens, bullets):
     #Update the bullet's position:
     bullets.update()
+
+    #Check if the bullet has made contact with an alien. If so, need to get rid of bullet and alien:
+    collisions = pygame.sprite.groupcollide(bullets, aliens, False, True)
 
      #Getting rid of bullets that have been fired for better memory management:
     for bullet in bullets.copy():
