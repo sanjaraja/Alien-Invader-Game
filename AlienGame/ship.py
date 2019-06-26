@@ -15,5 +15,5 @@ class Ship():
 
 
     #This method will allow for the ship to be actually drawn
-    def blitme(self):
+    def draw_ship(self):
         self.screen.blit(self.image, self.rect)

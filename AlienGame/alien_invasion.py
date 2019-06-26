@@ -2,6 +2,7 @@ import pygame
 import sys 
 from settings import Settings
 from ship import Ship
+import game_methods as game_runner
 
 #Making method that will start main loop of game:
 def run_game():
@@ -14,17 +15,8 @@ def run_game():
 
     #This is the loop that will be running the game:
     while True:
-
-        #Looking for keyboard and mouse events in gameL:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-
-        #Redrawing the screen after each pass through loop:
-        screen.fill(ai_settings.game_color)
-        ship.blitme()
         
-        #This will ensure that the drawing screen will be there:
-        pygame.display.flip()
+        game_runner.check_events()
+        game_runner.update_screen(ai_settings, screen, ship)
 
 run_game()
