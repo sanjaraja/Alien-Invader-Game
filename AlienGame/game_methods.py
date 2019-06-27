@@ -107,7 +107,7 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     return number_rows
 
 #This method calls method in alien class to make row of aliens move:
-def update_aliens(ai_settings, aliens):
+def update_aliens(ai_settings, ship, aliens):
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
 
