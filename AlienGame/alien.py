@@ -11,7 +11,7 @@ class Alien(Sprite):
         self.ai_settings = ai_settings
 
         #Creating the alien image and setting its rect properties:
-        self.image = pygame.image.load("AlienGame/images/alien.bmp")
+        self.image = pygame.image.load("images/alien.bmp")
         self.rect = self.image.get_rect()
 
         #Starting the alien near the top left corner of screen:

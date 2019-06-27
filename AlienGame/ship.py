@@ -6,7 +6,7 @@ class Ship():
         self.ai_settings = ai_settings
 
         #Generating the ship within the game:
-        self.image = pygame.image.load("AlienGame/images/ship.bmp")
+        self.image = pygame.image.load("images/ship.bmp")
         self.rect = self.image.get_rect() #Making the image a rectangle to easily access the coordinates and movement
         self.screen_rect = screen.get_rect()
 
@@ -36,3 +36,6 @@ class Ship():
         
         #Updating the rect object:
         self.rect.centerx = self.center
+    
+    def center_ship(self):
+        self.center = self.screen_rect.centerx

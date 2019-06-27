@@ -5,6 +5,7 @@ from ship import Ship
 #from alien import Alien
 import game_methods as game_runner
 from pygame.sprite import Group
+from game_stats import GameStats
 
 #Making method that will start main loop of game:
 def run_game():
@@ -16,6 +17,7 @@ def run_game():
     bullets = Group() 
     #alien = Alien(ai_settings, screen)
     aliens = Group()
+    stats = GameStats(ai_settings)
 
     #Creating a fleet of aliens:
     game_runner.create_fleet(ai_settings, screen, ship, aliens)
@@ -26,7 +28,7 @@ def run_game():
         game_runner.check_events(ai_settings, screen, ship, bullets)
         ship.update()
         game_runner.update_bullets(ai_settings, screen, ship, aliens, bullets)
-        game_runner.update_aliens(ai_settings, ship, aliens)
+        game_runner.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
         game_runner.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 run_game()

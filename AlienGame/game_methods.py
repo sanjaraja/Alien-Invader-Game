@@ -2,6 +2,7 @@ import sys
 import pygame
 from bullet import Bullet
 from alien import Alien
+from time import sleep
 
 #This function will check for events from the user: 
 def check_events(ai_settings, screen, ship, bullets):
@@ -107,13 +108,13 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     return number_rows
 
 #This method calls method in alien class to make row of aliens move:
-def update_aliens(ai_settings, ship, aliens):
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
 
     #Looking for ship and alien collissions:
     if pygame.sprite.spritecollideany(ship, aliens):
-        print("The ship has been hit")
+        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
 
 #This method will check if an alien has reached the edge and will make the fleet of aliens change direction if so:
 def check_fleet_edges(ai_settings, aliens):
@@ -128,6 +129,21 @@ def change_fleet_direction(ai_settings, aliens):
         alien.rect.y += ai_settings.fleet_drop_speed
     
     ai_settings.fleet_direction *= -1
+
+#This method will reset the game after the ship has been hit:
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+    stats.ships_left -= 1
+
+    #Empty the aliens and bullets:
+    aliens.empty()
+    bullets.empty()
+
+    #Create a new fleet and recenter the ship:
+    create_fleet(ai_settings, screen, ship, aliens)
+    ship.center_ship()
+
+    #Need to pause game for a short period of time:
+    sleep(0.5)
 
 
 
