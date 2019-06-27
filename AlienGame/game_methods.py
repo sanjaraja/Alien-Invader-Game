@@ -47,17 +47,25 @@ def check_key_up(event, ship):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
 
-def update_bullets(aliens, bullets):
+def update_bullets(ai_settings, screen, ship, aliens, bullets):
     #Update the bullet's position:
     bullets.update()
 
-    #Check if the bullet has made contact with an alien. If so, need to get rid of bullet and alien:
-    collisions = pygame.sprite.groupcollide(bullets, aliens, False, True)
+    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets)
 
      #Getting rid of bullets that have been fired for better memory management:
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)  
+
+def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
+    #Check if the bullet has made contact with an alien. If so, need to get rid of bullet and alien:
+    collisions = pygame.sprite.groupcollide(bullets, aliens, False, True)
+
+    if len(aliens) == 0:
+        bullets.empty() 
+        create_fleet(ai_settings, screen, ship, aliens)
+
 
 def fire_bullet(ai_settings, screen, ship, bullets):
     #Creating a new bullet and adding it to the bullets group:
@@ -102,6 +110,10 @@ def get_number_rows(ai_settings, ship_height, alien_height):
 def update_aliens(ai_settings, aliens):
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
+
+    #Looking for ship and alien collissions:
+    if pygame.sprite.spritecollideany(ship, aliens):
+        print("The ship has been hit")
 
 #This method will check if an alien has reached the edge and will make the fleet of aliens change direction if so:
 def check_fleet_edges(ai_settings, aliens):
