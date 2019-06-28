@@ -18,10 +18,7 @@ class Settings():
         self.ship_limit = 3
 
         #Alien Settings:
-        #self.alien_speed_factor = 1
-        #self.fleet_drop_speed = 10 #This variable will keep track of how quickly the fleet will drop
-        #Can switch the fleet_direction value between 1 and -1 to indicate which way the alien fleet will move
-        #self.fleet_direction = 1
+        self.alien_points = 50
 
         #How quickly the game will speed up:
         self.speedup_scale_aliens = 1.25

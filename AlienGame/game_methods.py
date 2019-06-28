@@ -41,7 +41,7 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bul
 
 
 #This function will update the screen while the game is running: 
-def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button):
+def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button):
     #Redrawing screen after each loop:
     screen.fill(ai_settings.game_color)
 
@@ -51,6 +51,9 @@ def update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button
     
     ship.draw_ship()
     aliens.draw(screen)
+
+    #Drawing the score information:
+    sb.show_score()
 
     #Drawing the button when the game is inactive:
     if not stats.game_active:
@@ -78,26 +81,31 @@ def check_key_up(event, ship):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
 
-def update_bullets(ai_settings, screen, ship, aliens, bullets):
+def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
     #Update the bullet's position:
     bullets.update()
 
-    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets)
+    check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets)
 
      #Getting rid of bullets that have been fired for better memory management:
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)  
 
-def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
+def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets):
     #Check if the bullet has made contact with an alien. If so, need to get rid of bullet and alien:
     collisions = pygame.sprite.groupcollide(bullets, aliens, False, True)
+
+    if collisions:
+        stats.score += ai_settings.alien_points
+        sb.prep_score()
 
     if len(aliens) == 0:
         bullets.empty() 
         ai_settings.increase_speed()
         ai_settings.get_att_settings()
         create_fleet(ai_settings, screen, ship, aliens)
+
 
 
 def fire_bullet(ai_settings, screen, ship, bullets):
