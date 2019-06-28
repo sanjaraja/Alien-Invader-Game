@@ -96,6 +96,7 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
     if len(aliens) == 0:
         bullets.empty() 
         ai_settings.increase_speed()
+        ai_settings.get_att_settings()
         create_fleet(ai_settings, screen, ship, aliens)
 
 
