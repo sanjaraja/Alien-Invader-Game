@@ -20,16 +20,24 @@ def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
 def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
     #This will start the game when the player clicks play:
     if play_button.rect.collidepoint(mouse_x, mouse_y):
-        stats.reset_stats()
-        stats.game_active = True
+        button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+        if button_clicked and not stats.game_active:
 
-        #Emptying the aliens and the bullets:
-        aliens.empty()
-        bullets.empty()
+            #Resetting the attribute settings of the game:
+            ai_settings.initialize_dynamic_settings()
+            
+            #Hiding the mouse cursor:
+            pygame.mouse.set_visible(False)
+            stats.reset_stats()
+            stats.game_active = True
 
-        #Creating a new fleet and centering the ship:
-        create_fleet(ai_settings, screen, ship, aliens)
-        ship.center_ship()
+            #Emptying the aliens and the bullets:
+            aliens.empty()
+            bullets.empty()
+
+            #Creating a new fleet and centering the ship:
+            create_fleet(ai_settings, screen, ship, aliens)
+            ship.center_ship()
 
 
 #This function will update the screen while the game is running: 
@@ -177,6 +185,8 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         sleep(0.5)
     else:
         stats.game_active = False
+        #Need to make mouse visible once the game is over:
+        pygame.mouse.set_visible(True)
 
 
 
