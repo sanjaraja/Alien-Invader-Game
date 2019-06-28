@@ -16,6 +16,7 @@ class Settings():
         #Ship settings:
         #self.ship_speed_factor = 1.5
         self.ship_limit = 3
+        self.score_scale = 1.5
 
         #Alien Settings:
         self.alien_points = 50
@@ -40,7 +41,8 @@ class Settings():
         self.ship_speed_factor *= self.speedup_scale_player
         self.bullet_speed_factor *= self.speedup_scale_player
         self.alien_speed_factor *= self.speedup_scale_aliens
-        self.fleet_drop_speed *= 1.002
+        self.fleet_drop_speed += 0.0000001
+        self.alien_points = int(self.alien_points * self.score_scale) #Need to scale score game gets more challenging
 
     def get_att_settings(self):
         print(self.ship_speed_factor)

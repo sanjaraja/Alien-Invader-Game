@@ -15,7 +15,8 @@ class Scoreboard():
         self.prep_score()
     
     def prep_score(self):
-        score_str = str(self.stats.score) #Converting int form of score to a string form for processing
+        rounded_score = int(round(self.stats.score, -1)) #This will round the score to the nearest 10
+        score_str = "{:,}".format(rounded_score)
         self.score_image = self.font.render(score_str, True, self.text_color, self.ai_settings.game_color)
 
         #Displaying the score on the top right corner of the window:
