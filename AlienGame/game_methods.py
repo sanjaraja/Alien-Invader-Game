@@ -100,7 +100,7 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
         for aliens in collisions.values():
             stats.score += ai_settings.alien_points * len(aliens)
             sb.prep_score()
-
+        check_high_score(stats, sb)
 
     if len(aliens) == 0:
         bullets.empty() 
@@ -188,7 +188,6 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     #Create a new fleet and recenter the ship:
     if stats.ships_left > 1:
         stats.ships_left -= 1
-        print(stats.ships_left)
         aliens.empty()
         bullets.empty()
         create_fleet(ai_settings, screen, ship, aliens)
@@ -196,8 +195,15 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         sleep(0.5)
     else:
         stats.game_active = False
+        ai_settings.reset_scaling()
         #Need to make mouse visible once the game is over:
         pygame.mouse.set_visible(True)
+
+#This method will update the high score if a new high score has been obtained:
+def check_high_score(stats, sb):
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()
 
 
 
